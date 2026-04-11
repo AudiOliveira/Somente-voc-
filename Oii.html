@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="spotf_logo.png">
+<title>Amo-te ❤️</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI';
+  background:linear-gradient(#2c5364,#0f2027);
+  color:white;
+}
+
+/* INTRO */
+.intro {
+  position:fixed;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(#2c5364,#0f2027);
+  z-index:10;
+}
+
+.spotify-logo {
+  background:#1db954;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  animation: pulse 2s infinite;
+}
+
+.spotify-logo img {
+  width:110%;
+  pointer-events:none;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* SITE */
+.container {
+  max-width:900px;
+  margin:auto;
+  display:none;
+  padding-bottom:40px;
+}
+
+.header {
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  padding:15px;
+}
+
+.music-card {
+  text-align:center;
+  padding:20px;
+}
+
+.music-image {
+  width:80%;
+  max-width:350px;
+  height:350px;
+  margin:auto;
+  border-radius:20px;
+  background-size:cover;
+  background-position:center;
+  background-image: url('sua-imagem-player.jpg');
+}
+
+.music-title {
+  margin-top:20px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.music-artist {
+  color:#ccc;
+}
+
+.progress-container {
+  width:90%;
+  margin:auto;
+}
+
+.progress {
+  width:100%;
+}
+
+.time {
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:#ccc;
+}
+
+.controls {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:15px;
+}
+
+.controls button {
+  background:white;
+  border:none;
+  padding:14px;
+  border-radius:50%;
+  cursor:pointer;
+  transition:0.2s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.controls button svg {
+  width:20px;
+  height:20px;
+  fill:black;
+}
+
+.controls button:hover {
+  transform: scale(1.2);
+  background:#1db954;
+}
+
+.controls button:hover svg {
+  fill:white;
+}
+
+.controls button:active {
+  transform: scale(0.9);
+}
+
+.card {
+  background:#333;
+  border-radius:15px;
+  padding:15px;
+  margin:10px;
+}
+
+.couple-image {
+  width:100%;
+  height:250px;
+  border-radius:12px;
+  margin-bottom:15px;
+  background-size:cover;
+  background-position:center;
+  background-image: url('sua-foto-casal.jpg');
+}
+
+.time-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.time-box {
+  background:#444;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.message-box {
+  margin:10px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.05);
+}
+
+.preview {
+  font-size:20px;
+  font-weight:bold;
+}
+
+.see-more {
+  color:#1db954;
+  cursor:pointer;
+}
+
+.lyrics {
+  display:none;
+  margin-top:15px;
+  font-size:22px;
+  line-height:1.8;
+  color:#ccc;
+}
+
+.lyrics.active {
+  display:block;
+}
+
+.lyrics span {
+  display:block;
+  margin-bottom:12px;
+}
+
+.highlight {
+  color:white;
+  font-weight:bold;
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro" id="intro">
+  <div class="spotify-logo" onclick="startApp()">
+    <img src="spotf_logo.png">
+  </div>
+</div>
+
+<div class="container" id="app">
+
+<div class="header">Amo-te ❤️</div>
+
+<div class="music-card">
+<div class="music-image"></div>
+
+<div class="music-title">Iris</div>
+<div class="music-artist">Goo Goo Dolls</div>
+
+<div class="progress-container">
+<input type="range" id="progress" class="progress" value="0">
+<div class="time">
+<span id="current">0:00</span>
+<span id="duration">0:00</span>
+</div>
+</div>
+
+<div class="controls">
+
+<button onclick="back()">
+<svg viewBox="0 0 24 24">
+<path d="M11 19L2 12l9-7v14zm1-7l9-7v14l-9-7z"/>
+</svg>
+</button>
+
+<button onclick="togglePlay()" id="playBtn">
+<svg id="playIcon" viewBox="0 0 24 24">
+<path d="M8 5v14l11-7z"/>
+</svg>
+</button>
+
+<button onclick="forward()">
+<svg viewBox="0 0 24 24">
+<path d="M13 5l9 7-9 7V5zm-1 7L3 19V5l9 7z"/>
+</svg>
+</button>
+
+</div>
+</div>
+
+<div class="card">
+<div class="couple-image"></div>
+<h2>Audi e Leticia ♥</h2>
+<p>Nosso primeiro Amo-te</p>
+
+<div class="time-grid">
+<div class="time-box"><span id="years">0</span><br>Anos</div>
+<div class="time-box"><span id="months">0</span><br>Meses</div>
+<div class="time-box"><span id="days">0</span><br>Dias</div>
+<div class="time-box"><span id="hours">0</span><br>Horas</div>
+<div class="time-box"><span id="minutes">0</span><br>Minutos</div>
+<div class="time-box"><span id="seconds">0</span><br>Segundos</div>
+</div>
+</div>
+
+<div class="message-box">
+<div class="preview">Desde aquele dia que percebi...</div>
+<div class="see-more" onclick="toggleLyrics()">ver mais</div>
+
+<div id="lyrics" class="lyrics">
+<span>Desde o dia que eu senti que tava amando de novo, minha cabeça deu um nó.</span>
+<span class="highlight">Sorri sozinho pro espelho e vi que eu tava feliz de verdade.</span>
+<span>E o melhor de tudo é ter você do lado — a melhor dançarina, Gamer, Carinhosa e um amor de pessoa.</span>
+<span class="highlight">Sério, você é incrível! ❤️</span>
+</div>
+</div>
+
+</div>
+
+<audio id="audio" src="musica.mp3"></audio>
+
+<script>
+const audio = document.getElementById("audio");
+const progress = document.getElementById("progress");
+const playIcon = document.getElementById("playIcon");
+
+function startApp(){
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+
+  app.style.display = "block";
+  app.style.opacity = "0";
+
+  app.offsetHeight;
+
+  intro.style.transition = "opacity 0.6s ease";
+  app.style.transition = "opacity 0.8s ease";
+
+  intro.style.opacity = "0";
+  app.style.opacity = "1";
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  }, 600);
+
+  audio.play();
+  setPauseIcon();
+}
+
+function togglePlay(){
+  if(audio.paused){
+    audio.play();
+    setPauseIcon();
+  } else {
+    audio.pause();
+    setPlayIcon();
+  }
+}
+
+function setPlayIcon(){
+  playIcon.innerHTML = '<path d=\"M8 5v14l11-7z\"/>';
+}
+
+function setPauseIcon(){
+  playIcon.innerHTML = '<path d=\"M6 5h4v14H6zm8 0h4v14h-4z\"/>';
+}
+
+function back(){ audio.currentTime -= 10; }
+function forward(){ audio.currentTime += 10; }
+
+audio.addEventListener("timeupdate", ()=>{
+  progress.value = (audio.currentTime / audio.duration) * 100;
+  document.getElementById("current").innerText = formatTime(audio.currentTime);
+  document.getElementById("duration").innerText = formatTime(audio.duration);
+});
+
+progress.addEventListener("input", ()=>{
+  audio.currentTime = (progress.value/100)*audio.duration;
+});
+
+function formatTime(time){
+  if(!time) return "0:00";
+  const min = Math.floor(time/60);
+  const sec = Math.floor(time%60).toString().padStart(2,"0");
+  return `${min}:${sec}`;
+}
+
+function toggleLyrics(){
+  document.getElementById("lyrics").classList.toggle("active");
+}
+
+const startDate = new Date("2026-02-01T21:26:00");
+
+function updateTime(){
+  const now = new Date();
+  let diff = now - startDate;
+
+  let seconds = Math.floor(diff/1000);
+  let minutes = Math.floor(seconds/60);
+  let hours = Math.floor(minutes/60);
+  let days = Math.floor(hours/24);
+
+  let months = Math.floor(days/30);
+  let years = Math.floor(months/12);
+
+  document.getElementById("years").innerText = years;
+  document.getElementById("months").innerText = months%12;
+  document.getElementById("days").innerText = days%30;
+  document.getElementById("hours").innerText = hours%24;
+  document.getElementById("minutes").innerText = minutes%60;
+  document.getElementById("seconds").innerText = seconds%60;
+}
+
+setInterval(updateTime,1000);
+</script>
+
+</body>
+</html>
