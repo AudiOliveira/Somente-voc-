@@ -1,395 +1,1539 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="icon" type="image/png" href="spotf_logo.png">
+
 <title>Amo-te ❤️</title>
 
 <style>
+
+/* ==============================
+   CONFIGURAÇÕES GERAIS
+============================== */
+
 body {
-  margin:0;
-  font-family:'Segoe UI';
-  background:linear-gradient(#2c5364,#0f2027);
-  color:white;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: white;
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(44, 83, 100, 0.82), rgba(15, 32, 39, 0.90)),
+        url('foto-fundo.jpg') center center / cover fixed no-repeat;
+    position: relative;
 }
 
-/* INTRO */
-.intro {
-  position:fixed;
-  width:100%;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(#2c5364,#0f2027);
-  z-index:10;
+
+/* Camada extra para deixar a foto do fundo mais suave/opaca */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    z-index: -1;
+    pointer-events: none;
 }
+
+
+/* ==============================
+   INTRO
+============================== */
+
+.intro {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            rgba(44, 83, 100, 0.468),
+            rgba(15, 32, 39, 0.90)
+        ),
+        url('foto-fundo.jpg') center center / cover fixed no-repeat;
+
+    z-index: 10;
+}
+
 
 .spotify-logo {
-  background:#1db954;
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  animation: pulse 2s infinite;
+    background: #1db954;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    animation: pulse 2s infinite;
 }
+
 
 .spotify-logo img {
-  width:110%;
-  pointer-events:none;
+    width: 110%;
+    pointer-events: none;
 }
+
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
 }
 
-/* SITE */
+
+/* ==============================
+   SITE
+============================== */
+
 .container {
-  max-width:900px;
-  margin:auto;
-  display:none;
-  padding-bottom:40px;
+    max-width: 900px;
+
+    margin: auto;
+
+    display: none;
+
+    padding-bottom: 40px;
 }
+
 
 .header {
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  padding:15px;
+    text-align: center;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    padding: 15px;
 }
+
+
+/* ==============================
+   PLAYER
+============================== */
 
 .music-card {
-  text-align:center;
-  padding:20px;
+    text-align: center;
+
+    padding: 20px;
 }
+
 
 .music-image {
-  width:80%;
-  max-width:350px;
-  height:350px;
-  margin:auto;
-  border-radius:20px;
-  background-size:cover;
-  background-position:center;
-  background-image: url('sua-imagem-player.jpg');
+    width: 80%;
+    max-width: 350px;
+    height: 350px;
+
+    margin: auto;
+
+    border-radius: 20px;
+
+    background-size: cover;
+    background-position: center;
+
+    background-image: url('foto-musica-1.jpg');
+
+    opacity: 1;
+
+    transition: opacity 2.5s ease-in-out;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
+
 
 .music-title {
-  margin-top:20px;
-  font-size:20px;
-  font-weight:bold;
+    margin-top: 20px;
+
+    font-size: 20px;
+    font-weight: bold;
 }
+
 
 .music-artist {
-  color:#ccc;
+    color: #ccc;
+
+    margin-top: 5px;
 }
+
+
+/* ==============================
+   PROGRESSO DA MÚSICA
+============================== */
 
 .progress-container {
-  width:90%;
-  margin:auto;
+    width: 90%;
+
+    margin: 25px auto 0;
 }
+
 
 .progress {
-  width:100%;
+    width: 100%;
+
+    cursor: pointer;
 }
+
 
 .time {
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  color:#ccc;
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 12px;
+
+    color: #ccc;
+
+    margin-top: 5px;
 }
+
+
+/* ==============================
+   CONTROLES
+============================== */
 
 .controls {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-top:15px;
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    margin-top: 15px;
 }
+
 
 .controls button {
-  background:white;
-  border:none;
-  padding:14px;
-  border-radius:50%;
-  cursor:pointer;
-  transition:0.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    background: white;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 }
+
 
 .controls button svg {
-  width:20px;
-  height:20px;
-  fill:black;
+    width: 20px;
+    height: 20px;
+
+    fill: black;
 }
+
 
 .controls button:hover {
-  transform: scale(1.2);
-  background:#1db954;
+    transform: scale(1.2);
+
+    background: #1db954;
 }
+
 
 .controls button:hover svg {
-  fill:white;
+    fill: white;
 }
+
 
 .controls button:active {
-  transform: scale(0.9);
+    transform: scale(0.9);
 }
+
+
+/* ==============================
+   CARDS
+============================== */
 
 .card {
-  background:#333;
-  border-radius:15px;
-  padding:15px;
-  margin:10px;
+    background: #333;
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+    margin: 15px 10px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
+
+
+.card h2 {
+    margin-top: 5px;
+}
+
+
+.card p {
+    color: #ccc;
+}
+
+
+/* ==============================
+   IMAGEM DOS CARDS
+============================== */
 
 .couple-image {
-  width:100%;
-  height:250px;
-  border-radius:12px;
-  margin-bottom:15px;
-  background-size:cover;
-  background-position:center;
-  background-image: url('sua-foto-casal.jpg');
+    width: 100%;
+
+    height: 250px;
+
+    border-radius: 12px;
+
+    margin-bottom: 15px;
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
 }
+
+
+.couple-image#pedido {
+    width: 100%;
+
+    height: 500px;
+}
+
+
+/* ==============================
+   CONTADORES
+============================== */
 
 .time-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 15px;
 }
+
 
 .time-box {
-  background:#444;
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
+    background: #444;
+
+    padding: 12px 5px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 13px;
 }
+
+
+.time-box span {
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+
+/* ==============================
+   MENSAGENS
+============================== */
 
 .message-box {
-  margin:10px;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(255,255,255,.05);
+    margin: 15px 10px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.05);
 }
+
 
 .preview {
-  font-size:20px;
-  font-weight:bold;
+    font-size: 20px;
+
+    font-weight: bold;
 }
+
 
 .see-more {
-  color:#1db954;
-  cursor:pointer;
+    color: #1db954;
+
+    cursor: pointer;
+
+    margin-top: 8px;
 }
+
 
 .lyrics {
-  display:none;
-  margin-top:15px;
-  font-size:22px;
-  line-height:1.8;
-  color:#ccc;
+    display: none;
+
+    margin-top: 15px;
+
+    font-size: 22px;
+
+    line-height: 1.8;
+
+    color: #ccc;
 }
+
 
 .lyrics.active {
-  display:block;
+    display: block;
 }
+
 
 .lyrics span {
-  display:block;
-  margin-bottom:12px;
+    display: block;
+
+    margin-bottom: 12px;
 }
 
+
 .highlight {
-  color:white;
-  font-weight:bold;
-  text-decoration:underline;
+    color: white;
+
+    font-weight: bold;
+
+    text-decoration: underline;
 }
+
+
+/* ==============================
+   RESPONSIVO
+============================== */
+
+@media (max-width: 600px) {
+
+    .music-image {
+        width: 90%;
+        height: 300px;
+    }
+
+    .couple-image {
+        height: 220px;
+    }
+
+    .couple-image#pedido {
+        height: 400px;
+    }
+
+    .time-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lyrics {
+        font-size: 18px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- ==================================
+     TELA DE ENTRADA
+================================== -->
+
 <div class="intro" id="intro">
-  <div class="spotify-logo" onclick="startApp()">
-    <img src="spotf_logo.png">
-  </div>
+
+    <div class="spotify-logo" onclick="startApp()">
+
+        <img src="spotf_logo.png">
+
+    </div>
+
 </div>
+
+
+
+<!-- ==================================
+     APLICAÇÃO
+================================== -->
 
 <div class="container" id="app">
 
-<div class="header">Amo-te ❤️</div>
 
-<div class="music-card">
-<div class="music-image"></div>
+    <div class="header">
+        Amo-te ❤️
+    </div>
 
-<div class="music-title">Iris</div>
-<div class="music-artist">Goo Goo Dolls</div>
 
-<div class="progress-container">
-<input type="range" id="progress" class="progress" value="0">
-<div class="time">
-<span id="current">0:00</span>
-<span id="duration">0:00</span>
+
+    <!-- ==================================
+         PLAYER DE MÚSICA
+    ================================== -->
+
+    <div class="music-card">
+
+        <div class="music-image"></div>
+
+        <div class="music-title">
+            Iris
+        </div>
+
+        <div class="music-artist">
+            Goo Goo Dolls
+        </div>
+
+
+        <div class="progress-container">
+
+            <input
+                type="range"
+                id="progress"
+                class="progress"
+                value="0"
+                min="0"
+                max="100"
+            >
+
+
+            <div class="time">
+
+                <span id="current">
+                    0:00
+                </span>
+
+                <span id="duration">
+                    0:00
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="controls">
+
+
+            <!-- VOLTAR -->
+
+            <button
+                onclick="back()"
+                title="Voltar 10 segundos"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M11 19L2 12l9-7v14zm1-7l9-7v14l-9-7z"/>
+
+                </svg>
+
+            </button>
+
+
+            <!-- PLAY / PAUSE -->
+
+            <button
+                onclick="togglePlay()"
+                id="playBtn"
+                title="Reproduzir"
+            >
+
+                <svg
+                    id="playIcon"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path d="M8 5v14l11-7z"/>
+
+                </svg>
+
+            </button>
+
+
+            <!-- AVANÇAR -->
+
+            <button
+                onclick="forward()"
+                title="Avançar 10 segundos"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M13 5l9 7-9 7V5zm-1 7L3 19V5l9 7z"/>
+
+                </svg>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================
+         CARD — PRIMEIRO AMO-TE
+    ================================== -->
+
+    <div class="card">
+
+
+        <div
+            class="couple-image"
+            style="background-image: url('sua-foto-casal.jpg');"
+        ></div>
+
+
+        <h2>
+            Audi e Leticia ♥
+        </h2>
+
+
+        <p>
+            Nosso primeiro Amo-te
+        </p>
+
+
+        <div class="time-grid">
+
+
+            <div class="time-box">
+
+                <span id="amo-years">
+                    0
+                </span>
+
+                <br>
+
+                Anos
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="amo-months">
+                    0
+                </span>
+
+                <br>
+
+                Meses
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="amo-days">
+                    0
+                </span>
+
+                <br>
+
+                Dias
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="amo-hours">
+                    0
+                </span>
+
+                <br>
+
+                Horas
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="amo-minutes">
+                    0
+                </span>
+
+                <br>
+
+                Minutos
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="amo-seconds">
+                    0
+                </span>
+
+                <br>
+
+                Segundos
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================
+         PRIMEIRA MENSAGEM
+    ================================== -->
+
+    <div class="message-box">
+
+
+        <div class="preview">
+
+            Desde aquele dia que percebi...
+
+        </div>
+
+
+        <div
+            class="see-more"
+            onclick="toggleLyrics()"
+        >
+
+            ver mais
+
+        </div>
+
+
+        <div
+            id="lyrics"
+            class="lyrics"
+        >
+
+
+            <span>
+
+                Desde o dia que eu senti que tava amando de novo,
+                minha cabeça deu um nó.
+
+            </span>
+
+
+            <span class="highlight">
+
+                Sorri sozinho pro espelho e vi que eu tava feliz
+                de verdade.
+
+            </span>
+
+
+            <span>
+
+                E o melhor de tudo é ter você do lado —
+                a melhor dançarina, Gamer, Carinhosa e um amor de pessoa.
+
+            </span>
+
+
+            <span class="highlight">
+
+                Sério, você é incrível! ❤️
+
+            </span>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================
+         CARD — PEDIDO DE NAMORO
+    ================================== -->
+
+    <div class="card">
+
+
+        <div
+            class="couple-image"
+            id="pedido"
+            style="background-image: url('foto-pedido.jpg');"
+        ></div>
+
+
+        <h2>
+            Pedido de Namoro ♥
+        </h2>
+
+
+        <p>
+            Nosso Sim ♥
+        </p>
+
+
+        <div class="time-grid">
+
+
+            <div class="time-box">
+
+                <span id="pedido-years">
+                    0
+                </span>
+
+                <br>
+
+                Anos
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="pedido-months">
+                    0
+                </span>
+
+                <br>
+
+                Meses
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="pedido-days">
+                    0
+                </span>
+
+                <br>
+
+                Dias
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="pedido-hours">
+                    0
+                </span>
+
+                <br>
+
+                Horas
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="pedido-minutes">
+                    0
+                </span>
+
+                <br>
+
+                Minutos
+
+            </div>
+
+
+            <div class="time-box">
+
+                <span id="pedido-seconds">
+                    0
+                </span>
+
+                <br>
+
+                Segundos
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================
+         SEGUNDA MENSAGEM
+         DEPOIS DO PEDIDO DE NAMORO
+    ================================== -->
+
+    <div class="message-box">
+
+
+        <div class="preview">
+
+            Oiii Amor...
+
+        </div>
+
+
+        <div
+            class="see-more"
+            onclick="toggleSecondMessage()"
+        >
+
+            ver mais
+
+        </div>
+
+
+        <div
+            id="secondMessage"
+            class="lyrics"
+        >
+
+
+            <span>
+
+                Naquele dia, eu estava com muita ansiedade,
+                ansioso pois queria você comigo.
+
+            </span>
+
+
+            <span class="highlight">
+
+                Ali eu soube, que vou querer passar o resto da vida nesse
+                mundo ao seu lado, amadurecer ainda mais juntos, construir
+                nossa família, envelhecer juntos...
+
+            </span>
+
+
+            <span>
+
+                Ao ponto dos nossos filhos nos veem e dizerem:
+                <br><br>
+                "meus pais se amam muito"
+
+            </span>
+
+
+            <span>
+
+                Sabe, hoje dia 10/09/2026 às 19:34 enquanto estou escrevendo
+                esse texto estou lembrando que ontem você me falou que não
+                imaginava e nem acreditava estar vivendo um amor novamente.
+
+            </span>
+
+
+            <span>
+
+                Aquilo me lembrou de como eu estava a exatamente
+                1 ano e meio atrás.
+
+            </span>
+
+
+            <span class="highlight">
+
+                Sabe, eu tô muito feliz que nada pra trás tenha dado certo
+                porque eu te encontrei.
+
+            </span>
+
+
+            <span>
+
+                Isso me fez perceber que eu estou completamente apaixonado
+                por você!
+
+            </span>
+
+
+            <span class="highlight">
+
+                Eu te amo, sempre vou amar. ❤️
+
+            </span>
+
+
+            <span>
+
+                Com carinho,
+                <br>
+                o amor de sua vida,
+                <br>
+                <strong>Audi ♥</strong>
+
+            </span>
+
+
+        </div>
+
+    </div>
+
+
 </div>
-</div>
 
-<div class="controls">
 
-<button onclick="back()">
-<svg viewBox="0 0 24 24">
-<path d="M11 19L2 12l9-7v14zm1-7l9-7v14l-9-7z"/>
-</svg>
-</button>
 
-<button onclick="togglePlay()" id="playBtn">
-<svg id="playIcon" viewBox="0 0 24 24">
-<path d="M8 5v14l11-7z"/>
-</svg>
-</button>
+<!-- ==================================
+     MÚSICA
+================================== -->
 
-<button onclick="forward()">
-<svg viewBox="0 0 24 24">
-<path d="M13 5l9 7-9 7V5zm-1 7L3 19V5l9 7z"/>
-</svg>
-</button>
+<audio
+    id="audio"
+    src="musica.mp3"
+></audio>
 
-</div>
-</div>
 
-<div class="card">
-<div class="couple-image"></div>
-<h2>Audi e Leticia ♥</h2>
-<p>Nosso primeiro Amo-te</p>
-
-<div class="time-grid">
-<div class="time-box"><span id="years">0</span><br>Anos</div>
-<div class="time-box"><span id="months">0</span><br>Meses</div>
-<div class="time-box"><span id="days">0</span><br>Dias</div>
-<div class="time-box"><span id="hours">0</span><br>Horas</div>
-<div class="time-box"><span id="minutes">0</span><br>Minutos</div>
-<div class="time-box"><span id="seconds">0</span><br>Segundos</div>
-</div>
-</div>
-
-<div class="message-box">
-<div class="preview">Desde aquele dia que percebi...</div>
-<div class="see-more" onclick="toggleLyrics()">ver mais</div>
-
-<div id="lyrics" class="lyrics">
-<span>Desde o dia que eu senti que tava amando de novo, minha cabeça deu um nó.</span>
-<span class="highlight">Sorri sozinho pro espelho e vi que eu tava feliz de verdade.</span>
-<span>E o melhor de tudo é ter você do lado — a melhor dançarina, Gamer, Carinhosa e um amor de pessoa.</span>
-<span class="highlight">Sério, você é incrível! ❤️</span>
-</div>
-</div>
-
-</div>
-
-<audio id="audio" src="musica.mp3"></audio>
 
 <script>
-const audio = document.getElementById("audio");
-const progress = document.getElementById("progress");
-const playIcon = document.getElementById("playIcon");
 
-function startApp(){
-  const intro = document.getElementById("intro");
-  const app = document.getElementById("app");
 
-  app.style.display = "block";
-  app.style.opacity = "0";
+/* ==================================
+   PLAYER
+================================== */
 
-  app.offsetHeight;
+const audio =
+    document.getElementById("audio");
 
-  intro.style.transition = "opacity 0.6s ease";
-  app.style.transition = "opacity 0.8s ease";
 
-  intro.style.opacity = "0";
-  app.style.opacity = "1";
+const progress =
+    document.getElementById("progress");
 
-  setTimeout(() => {
-    intro.style.display = "none";
-  }, 600);
 
-  audio.play();
-  setPauseIcon();
+const playIcon =
+    document.getElementById("playIcon");
+
+
+
+/* ==================================
+   SLIDESHOW DA FOTO DO PLAYER
+================================== */
+
+const musicImage =
+    document.querySelector(".music-image");
+
+
+const musicPhotos = [
+
+    "foto-musica-1.jpg",
+    "foto-musica-2.jpg",
+    "foto-musica-3.jpg",
+    "foto-musica-4.jpg",
+    "foto-musica-5.jpg"
+
+];
+
+
+let currentPhoto = 0;
+
+
+function changeMusicPhoto() {
+
+    musicImage.style.opacity = "0";
+
+
+    setTimeout(() => {
+
+        currentPhoto++;
+
+
+        if (currentPhoto >= musicPhotos.length) {
+
+            currentPhoto = 0;
+
+        }
+
+
+        musicImage.style.backgroundImage =
+            `url('${musicPhotos[currentPhoto]}')`;
+
+
+        musicImage.style.opacity = "1";
+
+
+    }, 2500);
+
 }
 
-function togglePlay(){
-  if(audio.paused){
-    audio.play();
+
+/* Troca de foto a cada 10 segundos */
+
+setInterval(
+    changeMusicPhoto,
+    10000
+);
+
+
+
+/* ==================================
+   INICIAR SITE
+================================== */
+
+function startApp() {
+
+    const intro =
+        document.getElementById("intro");
+
+
+    const app =
+        document.getElementById("app");
+
+
+    app.style.display = "block";
+
+    app.style.opacity = "0";
+
+
+    /* Força o navegador a reconhecer a mudança */
+
+    app.offsetHeight;
+
+
+    intro.style.transition =
+        "opacity 0.6s ease";
+
+
+    app.style.transition =
+        "opacity 0.8s ease";
+
+
+    intro.style.opacity = "0";
+
+    app.style.opacity = "1";
+
+
+    setTimeout(() => {
+
+        intro.style.display = "none";
+
+    }, 600);
+
+
+    /* Começa a música */
+
+    audio.play().catch(() => {
+
+        console.log(
+            "O navegador bloqueou a reprodução automática."
+        );
+
+    });
+
+
     setPauseIcon();
-  } else {
-    audio.pause();
-    setPlayIcon();
-  }
+
 }
 
-function setPlayIcon(){
-  playIcon.innerHTML = '<path d=\"M8 5v14l11-7z\"/>';
+
+
+/* ==================================
+   PLAY / PAUSE
+================================== */
+
+function togglePlay() {
+
+    if (audio.paused) {
+
+        audio.play();
+
+        setPauseIcon();
+
+    } else {
+
+        audio.pause();
+
+        setPlayIcon();
+
+    }
+
 }
 
-function setPauseIcon(){
-  playIcon.innerHTML = '<path d=\"M6 5h4v14H6zm8 0h4v14h-4z\"/>';
+
+
+/* ==================================
+   ÍCONE PLAY
+================================== */
+
+function setPlayIcon() {
+
+    playIcon.innerHTML =
+        '<path d="M8 5v14l11-7z"/>';
+
 }
 
-function back(){ audio.currentTime -= 10; }
-function forward(){ audio.currentTime += 10; }
 
-audio.addEventListener("timeupdate", ()=>{
-  progress.value = (audio.currentTime / audio.duration) * 100;
-  document.getElementById("current").innerText = formatTime(audio.currentTime);
-  document.getElementById("duration").innerText = formatTime(audio.duration);
-});
 
-progress.addEventListener("input", ()=>{
-  audio.currentTime = (progress.value/100)*audio.duration;
-});
+/* ==================================
+   ÍCONE PAUSE
+================================== */
 
-function formatTime(time){
-  if(!time) return "0:00";
-  const min = Math.floor(time/60);
-  const sec = Math.floor(time%60).toString().padStart(2,"0");
-  return `${min}:${sec}`;
+function setPauseIcon() {
+
+    playIcon.innerHTML =
+        '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>';
+
 }
 
-function toggleLyrics(){
-  document.getElementById("lyrics").classList.toggle("active");
+
+
+/* ==================================
+   VOLTAR 10 SEGUNDOS
+================================== */
+
+function back() {
+
+    audio.currentTime =
+        Math.max(
+            0,
+            audio.currentTime - 10
+        );
+
 }
 
-const startDate = new Date("2026-02-01T21:26:00");
 
-function updateTime(){
-  const now = new Date();
-  let diff = now - startDate;
 
-  let seconds = Math.floor(diff/1000);
-  let minutes = Math.floor(seconds/60);
-  let hours = Math.floor(minutes/60);
-  let days = Math.floor(hours/24);
+/* ==================================
+   AVANÇAR 10 SEGUNDOS
+================================== */
 
-  let months = Math.floor(days/30);
-  let years = Math.floor(months/12);
+function forward() {
 
-  document.getElementById("years").innerText = years;
-  document.getElementById("months").innerText = months%12;
-  document.getElementById("days").innerText = days%30;
-  document.getElementById("hours").innerText = hours%24;
-  document.getElementById("minutes").innerText = minutes%60;
-  document.getElementById("seconds").innerText = seconds%60;
+    audio.currentTime =
+        Math.min(
+            audio.duration || Infinity,
+            audio.currentTime + 10
+        );
+
 }
 
-setInterval(updateTime,1000);
+
+
+/* ==================================
+   ATUALIZAR PLAYER
+================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    () => {
+
+        if (audio.duration) {
+
+            progress.value =
+                (audio.currentTime /
+                audio.duration) * 100;
+
+        }
+
+
+        document.getElementById("current").innerText =
+            formatTime(audio.currentTime);
+
+
+        document.getElementById("duration").innerText =
+            formatTime(audio.duration);
+
+    }
+);
+
+
+
+/* ==================================
+   QUANDO A MÚSICA TERMINAR
+================================== */
+
+audio.addEventListener(
+    "ended",
+    () => {
+
+        setPlayIcon();
+
+        progress.value = 0;
+
+    }
+);
+
+
+
+/* ==================================
+   BARRA DE PROGRESSO
+================================== */
+
+progress.addEventListener(
+    "input",
+    () => {
+
+        if (audio.duration) {
+
+            audio.currentTime =
+                (progress.value / 100) *
+                audio.duration;
+
+        }
+
+    }
+);
+
+
+
+/* ==================================
+   FORMATAR TEMPO
+================================== */
+
+function formatTime(time) {
+
+    if (!time || isNaN(time)) {
+
+        return "0:00";
+
+    }
+
+
+    const min =
+        Math.floor(time / 60);
+
+
+    const sec =
+        Math.floor(time % 60)
+        .toString()
+        .padStart(2, "0");
+
+
+    return `${min}:${sec}`;
+
+}
+
+
+
+/* ==================================
+   PRIMEIRA MENSAGEM
+================================== */
+
+function toggleLyrics() {
+
+    document
+        .getElementById("lyrics")
+        .classList
+        .toggle("active");
+
+}
+
+
+
+/* ==================================
+   SEGUNDA MENSAGEM
+================================== */
+
+function toggleSecondMessage() {
+
+    document
+        .getElementById("secondMessage")
+        .classList
+        .toggle("active");
+
+}
+
+
+
+/* ==================================
+   DATAS
+================================== */
+
+
+/*
+   PRIMEIRO "AMO-TE"
+
+   01/02/2026 às 21:26
+*/
+
+const amoDate =
+    new Date("2026-02-01T21:26:00");
+
+
+
+/*
+   PEDIDO DE NAMORO
+
+   06/09/2026 às 19:15
+*/
+
+const pedidoDate =
+    new Date("2026-09-06T19:15:00");
+
+
+
+/* ==================================
+   CALCULAR CONTADOR
+================================== */
+
+function calcularTempo(
+    dataInicial,
+    prefixo
+) {
+
+    const agora =
+        new Date();
+
+
+    let diff =
+        agora - dataInicial;
+
+
+    /*
+       Caso a data ainda não tenha chegado,
+       o contador fica em zero.
+    */
+
+    if (diff < 0) {
+
+        diff = 0;
+
+    }
+
+
+    let segundos =
+        Math.floor(diff / 1000);
+
+
+    let minutos =
+        Math.floor(segundos / 60);
+
+
+    let horas =
+        Math.floor(minutos / 60);
+
+
+    let dias =
+        Math.floor(horas / 24);
+
+
+    /*
+       Conversão aproximada para meses/anos.
+
+       365 dias = 1 ano
+       30 dias = 1 mês
+    */
+
+    let anos =
+        Math.floor(dias / 365);
+
+
+    let meses =
+        Math.floor(
+            (dias % 365) / 30
+        );
+
+
+    let diasRestantes =
+        dias % 30;
+
+
+
+    /* ==================================
+       ATUALIZAR HTML
+    ================================== */
+
+    document.getElementById(
+        prefixo + "-years"
+    ).innerText = anos;
+
+
+    document.getElementById(
+        prefixo + "-months"
+    ).innerText = meses;
+
+
+    document.getElementById(
+        prefixo + "-days"
+    ).innerText =
+        diasRestantes;
+
+
+    document.getElementById(
+        prefixo + "-hours"
+    ).innerText =
+        horas % 24;
+
+
+    document.getElementById(
+        prefixo + "-minutes"
+    ).innerText =
+        minutos % 60;
+
+
+    document.getElementById(
+        prefixo + "-seconds"
+    ).innerText =
+        segundos % 60;
+
+}
+
+
+
+/* ==================================
+   ATUALIZAR OS DOIS CONTADORES
+================================== */
+
+function updateTime() {
+
+    calcularTempo(
+        amoDate,
+        "amo"
+    );
+
+
+    calcularTempo(
+        pedidoDate,
+        "pedido"
+    );
+
+}
+
+
+
+/* Atualiza imediatamente */
+
+updateTime();
+
+
+
+/* Atualiza a cada segundo */
+
+setInterval(
+    updateTime,
+    1000
+);
+
+
 </script>
 
 </body>
+
 </html>
